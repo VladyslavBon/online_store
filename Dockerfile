@@ -11,4 +11,4 @@ EXPOSE $8000
 
 RUN python manage.py migrate
 
-CMD gunicorn --bind :$8000 --workers 2 backend.wsgi
+CMD gunicorn --bind :$8000 --workers 2 online_store.wsgi
