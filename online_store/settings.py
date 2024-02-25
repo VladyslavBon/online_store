@@ -12,19 +12,20 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-import environ
+
+# import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env()
-environ.Env.read_env(BASE_DIR / ".env")
+# env = environ.Env()
+# environ.Env.read_env(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = "django-insecure-z^5w^ds1unzw9$=j__cu)-yg^(qjpfu&=%l%3_cvpq2_b0pqhh"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,10 +90,10 @@ WSGI_APPLICATION = "online_store.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DATABASE_NAME"),
-        "USER": env("DATABASE_USER"),
-        "PASSWORD": env("DATABASE_PASSWORD"),
-        "HOST": env("DATABASE_HOST"),
+        "NAME": "koyebdb",
+        "USER": "koyeb-adm",
+        "PASSWORD": "********",
+        "HOST": "ep-patient-cloud-a2wfg8tc.eu-central-1.pg.koyeb.app",
         "OPTIONS": {"sslmode": "require"},
     }
 }
