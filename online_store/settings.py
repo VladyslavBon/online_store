@@ -100,11 +100,11 @@ WSGI_APPLICATION = "online_store.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "store",
-        "USER": "postgres",
-        "PASSWORD": "567234",
-        "HOST": "127.0.0.1",
-        "PORT": 5432,
+        "NAME": "koyebdb",
+        "USER": "koyeb-adm",
+        "PASSWORD": "Ipebn35fqQdA",
+        "HOST": "ep-patient-cloud-a2wfg8tc.eu-central-1.pg.koyeb.app",
+        "OPTIONS": {"sslmode": "require"},
     }
 }
 
