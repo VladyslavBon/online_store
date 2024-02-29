@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name="dewql5auf",
+    api_key="613296812413776",
+    api_secret="_PmWTMzVCGi5-Ka1MOtrkFb_x1s",
+)
 
 # import environ
 
@@ -47,6 +56,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     "django_filters",
+    "cloudinary",
     "accounts.apps.AccountsConfig",
     "store.apps.StoreConfig",
 ]
@@ -90,11 +100,11 @@ WSGI_APPLICATION = "online_store.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "koyebdb",
-        "USER": "koyeb-adm",
-        "PASSWORD": "Ipebn35fqQdA",
-        "HOST": "ep-patient-cloud-a2wfg8tc.eu-central-1.pg.koyeb.app",
-        "OPTIONS": {"sslmode": "require"},
+        "NAME": "store",
+        "USER": "postgres",
+        "PASSWORD": "567234",
+        "HOST": "127.0.0.1",
+        "PORT": 5432,
     }
 }
 

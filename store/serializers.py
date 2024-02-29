@@ -6,9 +6,23 @@ from .models import ProductModel, ShippingAddressModel, OrderModel, CommentModel
 
 
 class ProductModelSerializer(serializers.ModelSerializer):
+    image = serializers.URLField(source="image.url", read_only=True)
+
     class Meta:
         model = ProductModel
-        fields = ["id", "name", "slug", "price", "manufacturer", "guarantee", "info"]
+        fields = [
+            "id",
+            "title",
+            "slug",
+            "code",
+            "available",
+            "promotion",
+            "image",
+            "price",
+            "sale",
+            "bonus",
+            "property",
+        ]
         """
 		lookup_field = 'slug'
 		extra_kwargs = {
