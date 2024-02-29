@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name="dewql5auf",
+    api_key="613296812413776",
+    api_secret="_PmWTMzVCGi5-Ka1MOtrkFb_x1s",
+)
 
 # import environ
 
@@ -47,6 +56,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     "django_filters",
+    "cloudinary",
     "accounts.apps.AccountsConfig",
     "store.apps.StoreConfig",
 ]

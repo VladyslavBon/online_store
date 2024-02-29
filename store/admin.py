@@ -5,7 +5,19 @@ from .models import ProductModel, ShippingAddressModel, OrderModel, CommentModel
 
 @admin.register(ProductModel)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "slug", "price", "manufacturer", "guarantee", "info"]
+    list_display = [
+        "id",
+        "title",
+        "slug",
+        "code",
+        "available",
+        "promotion",
+        "image",
+        "price",
+        "sale",
+        "bonus",
+        "property",
+    ]
 
 
 @admin.register(ShippingAddressModel)

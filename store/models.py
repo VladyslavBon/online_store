@@ -1,23 +1,28 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
+from cloudinary.models import CloudinaryField
 
 
 class ProductModel(models.Model):
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True, max_length=255)
-    price = models.FloatField()
-    manufacturer = models.CharField(max_length=255)
-    guarantee = models.IntegerField()
-    info = models.JSONField(blank=True)
+    code = models.PositiveIntegerField(unique=True, blank=True)
+    available = models.BooleanField(default=True)
+    promotion = models.BooleanField(blank=True)
+    image = CloudinaryField(blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    sale = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    bonus = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
+    property = models.JSONField(blank=True)
 
     favorite = models.ManyToManyField(get_user_model(), blank=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.title)
         super(ProductModel, self).save(*args, **kwargs)
 
 

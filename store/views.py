@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.db.models import Q, F
 
@@ -9,6 +10,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters import rest_framework as filters
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser, JSONParser
+import cloudinary.uploader
+
 
 from .models import ProductModel, OrderModel, CommentModel
 from .serializers import (
@@ -99,6 +103,23 @@ class CreateProductView(generics.CreateAPIView):
     queryset = ProductModel.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = ProductModelSerializer
+    parser_classes = (
+        MultiPartParser,
+        JSONParser,
+    )
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+
+        file = request.data.get("image")
+
+        upload_data = cloudinary.uploader.upload(file, folder="online_store")
+        if serializer.is_valid():
+            serializer.save(image=upload_data["url"])
+            return Response(serializer.data, status=201)
+        else:
+            print(serializer.errors)
+            return Response(serializer.data, status=201)
 
 
 class DetailProductView(generics.RetrieveUpdateDestroyAPIView):
@@ -117,6 +138,12 @@ class GetAllProductsView(generics.ListAPIView):
     permission_classes = (AllowAny,)
     serializer_class = ProductModelSerializer
 
+    def get_image(request, product_id):
+        product = ProductModel.objects.get(pk=product_id)
+        image_url = product.image.url
+        response = HttpResponse(image_url)
+        return response
+
 
 class GetProductView(generics.RetrieveAPIView):
     """Get product by slug"""
@@ -125,6 +152,12 @@ class GetProductView(generics.RetrieveAPIView):
     permission_classes = (AllowAny,)
     serializer_class = OneProductSerializer
     lookup_field = "slug"
+
+    def get_image(request, product_id):
+        product = ProductModel.objects.get(pk=product_id)
+        image_url = product.image.url
+        response = HttpResponse(image_url)
+        return response
 
 
 class SearchProductsView(generics.ListAPIView):
@@ -196,7 +229,7 @@ class CreateComment(generics.CreateAPIView):
     serializer_class = CommentCreateUpdateSerializer
 
 
-class FavoriteProductUpd(generics.RetrieveUpdateAPIView):
+class FavoriteProductUpd(generics.RetrieveUpdateDestroyAPIView):
     """TO DO - create separate Create and Delete"""
 
     queryset = ProductModel.objects.all()
