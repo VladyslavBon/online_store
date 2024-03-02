@@ -121,6 +121,13 @@ class CreateProductView(generics.CreateAPIView):
             print(serializer.errors)
             return Response(serializer.data, status=201)
 
+    def create_multiple(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data, many=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(many=True)
+        return Response(status=status.HTTP_201_CREATED)
+
 
 class DetailProductView(generics.RetrieveUpdateDestroyAPIView):
     """Update/Delete product in Data Base"""
