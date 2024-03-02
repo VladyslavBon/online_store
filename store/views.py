@@ -111,11 +111,11 @@ class CreateProductView(generics.CreateAPIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
 
-        file = request.data.get("image")
-        upload_data = cloudinary.uploader.upload(file, folder="online_store")
+        # file = request.data.get("image")
+        # upload_data = cloudinary.uploader.upload(file, folder="online_store")
 
         if serializer.is_valid():
-            serializer.save(image=upload_data["url"])
+            serializer.save()  # image=upload_data["url"]
             return Response(serializer.data, status=201)
         else:
             print(serializer.errors)
@@ -128,10 +128,10 @@ class CreateProductView(generics.CreateAPIView):
             serializer = self.serializer_class(data=product_data)
             serializer.is_valid(raise_exception=True)
 
-            file = product_data.get("image")
-            upload_data = cloudinary.uploader.upload(file, folder="online_store")
+            # file = product_data.get("image")
+            # upload_data = cloudinary.uploader.upload(file, folder="online_store")
 
-            serializer.save(image=upload_data["url"])
+            serializer.save()  # image=upload_data["url"]
         return Response(status=status.HTTP_201_CREATED)
 
 
