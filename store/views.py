@@ -112,8 +112,8 @@ class CreateProductView(generics.CreateAPIView):
         serializer = self.serializer_class(data=request.data)
 
         file = request.data.get("image")
-
         upload_data = cloudinary.uploader.upload(file, folder="online_store")
+
         if serializer.is_valid():
             serializer.save(image=upload_data["url"])
             return Response(serializer.data, status=201)
@@ -123,9 +123,15 @@ class CreateProductView(generics.CreateAPIView):
 
     def create_multiple(self, request):
         data = request.data
-        serializer = self.serializer_class(data=data, many=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(many=True)
+
+        for product_data in data:
+            serializer = self.serializer_class(data=product_data)
+            serializer.is_valid(raise_exception=True)
+
+            file = product_data.get("image")
+            upload_data = cloudinary.uploader.upload(file, folder="online_store")
+
+            serializer.save(image=upload_data["url"])
         return Response(status=status.HTTP_201_CREATED)
 
 
