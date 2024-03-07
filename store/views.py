@@ -36,12 +36,18 @@ def ApiOverview(request):
             "methods": "POST",
             "info": "Create product to data base",
             "fields": {
-                "name": "",
-                "slug": "",
+                "title": "",
+                "code": "",
+                "available": "",
+                "promotion": "",
+                "image": "image.jpg",
                 "price": "",
-                "manufacturer": "",
-                "guarantee": "",
-                "info": "",
+                "sale": "",
+                "bonus": "",
+                "property": {
+                    "key": "value",
+                    "key": "value",
+                },
             },
         },
         "Update/Delete product": {
@@ -59,6 +65,16 @@ def ApiOverview(request):
             "methods": "GET",
             "info": "Returns product with given slug",
             "example": "products/amd-ryzen-5600",
+        },
+        "Search product by symbols in it's name": {
+            "endpoint": "/products/search/",
+            "methods": "GET",
+            "info": "Returns product with given slug",
+        },
+        "Filter products by specific conditions": {
+            "endpoint": "/products/filter/",
+            "methods": "GET",
+            "info": "Returns product with given slug",
         },
         "Registration user": {
             "endpoint": "/accounts/register/",
@@ -174,24 +190,21 @@ class GetProductView(generics.RetrieveAPIView):
 
 
 class SearchProductsView(generics.ListAPIView):
-    """Search product by it's symbols in its name"""
+    """Search product by symbols in it's name"""
 
     permission_classes = (AllowAny,)
     serializer_class = ProductModelSerializer
 
     def get_queryset(self):
         queryset = ProductModel.objects.all()
-        name = self.request.query_params.get("name")
-        if name is not None:
-            queryset = queryset.filter(Q(name__icontains=name))
+        title = self.request.query_params.get("title")
+        if title is not None:
+            queryset = queryset.filter(Q(name__icontains=title))
         return queryset
 
 
-class FilterProductsApiView(generics.ListAPIView):
-    """
-    Filter products by specific conditions
-
-    """
+class FilterProductsView(generics.ListAPIView):
+    """Filter products by specific conditions"""
 
     queryset = ProductModel.objects.all()
     permission_classes = (AllowAny,)

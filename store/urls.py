@@ -17,7 +17,9 @@ urlpatterns = [
     path(
         "products/search/", views.SearchProductsView.as_view(), name="search_products"
     ),
-    path("products/filter/", views.FilterProductsApiView.as_view()),
+    path(
+        "products/filter/", views.FilterProductsView.as_view(), name="filter_products"
+    ),
     path("products/checkout/", views.OrderApiView.as_view()),
     path("products/order/<int:id>", views.GetOrderApi.as_view()),
     path("products/comment/", views.CreateComment.as_view()),
