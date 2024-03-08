@@ -199,7 +199,7 @@ class SearchProductsView(generics.ListAPIView):
         queryset = ProductModel.objects.all()
         title = self.request.query_params.get("title")
         if title is not None:
-            queryset = queryset.filter(Q(name__icontains=title))
+            queryset = queryset.filter(Q(title__icontains=title))
         return queryset
 
 
