@@ -67,14 +67,16 @@ def ApiOverview(request):
             "example": "products/amd-ryzen-5600",
         },
         "Search product by symbols in it's name": {
-            "endpoint": "/products/search/",
+            "endpoint": "/products/search/?title=<title>",
             "methods": "GET",
-            "info": "Returns product with given slug",
+            "info": "Returns products with given name",
+            "example": "/products/search/?title=amd",
         },
         "Filter products by specific conditions": {
-            "endpoint": "/products/filter/",
+            "endpoint": "/products/filter/<conditions>",
             "methods": "GET",
-            "info": "Returns product with given slug",
+            "info": "Returns products with given conditions",
+            "example": "/products/filter/?price=&available=&min_price=&max_price=3499",
         },
         "Registration user": {
             "endpoint": "/accounts/register/",
