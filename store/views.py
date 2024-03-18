@@ -219,25 +219,32 @@ class AuthOrderApiView(APIView):
     pass
 
 
-class OrderApiView(APIView):
+class CreateOrderView(generics.CreateAPIView):
     """Creates order"""
 
+    queryset = ProductModel.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = ProductModelSerializer
+    parser_classes = (
+        MultiPartParser,
+        JSONParser,
+    )
 
-def post(self, request, *args, **kwargs):
-    if request.user.is_authenticated:
-        """TO DO for logged in User"""
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            """TO DO for logged in User"""
 
-        return Response("I am Authenticated")
+            return Response("I am Authenticated")
 
-    else:
-        serializer = OrderSerializerAnonym(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = OrderSerializerAnonym(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class GetOrderApi(generics.RetrieveAPIView):
+class GetOrderView(generics.RetrieveAPIView):
     queryset = OrderModel.objects.all()
     serializer_class = OrderSerializerAnonym
     permission_classes = (AllowAny,)

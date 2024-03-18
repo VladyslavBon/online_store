@@ -22,8 +22,8 @@ urlpatterns = [
     path(
         "products/filter/", views.FilterProductsView.as_view(), name="filter_products"
     ),
-    path("products/checkout/", views.OrderApiView.as_view()),
-    path("products/order/<int:id>", views.GetOrderApi.as_view()),
+    path("products/checkout/", views.CreateOrderView.as_view(), name="create_order"),
+    path("products/order/<int:id>", views.GetOrderView.as_view(), name="get_order"),
     path("products/comment/", views.CreateComment.as_view()),
     path("products/comment/<int:id>/", views.UpdateComment.as_view()),
     path("products/favorite/upd/<slug:slug>/", views.FavoriteProductUpd.as_view()),
