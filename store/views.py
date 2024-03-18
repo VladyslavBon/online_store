@@ -222,13 +222,13 @@ class AuthOrderApiView(APIView):
 class CreateOrderView(generics.CreateAPIView):
     """Creates order"""
 
-    # queryset = ProductModel.objects.all()
-    # permission_classes = (AllowAny,)
-    # serializer_class = ProductModelSerializer
-    # parser_classes = (
-    #     MultiPartParser,
-    #     JSONParser,
-    # )
+    queryset = ProductModel.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = OrderSerializerAnonym
+    parser_classes = (
+        MultiPartParser,
+        JSONParser,
+    )
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
