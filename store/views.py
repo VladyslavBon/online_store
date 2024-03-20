@@ -181,14 +181,14 @@ class GetProductView(generics.RetrieveAPIView):
 
     queryset = ProductModel.objects.all()
     permission_classes = (AllowAny,)
-    serializer_class = OneProductSerializer
+    serializer_class = ProductModelSerializer
     lookup_field = "slug"
 
-    def get_image(request, product_id):
-        product = ProductModel.objects.get(pk=product_id)
-        image_url = product.image.url
-        response = HttpResponse(image_url)
-        return response
+    # def get_image(request, product_id):
+    #     product = ProductModel.objects.get(pk=product_id)
+    #     image_url = product.image.url
+    #     response = HttpResponse(image_url)
+    #     return response
 
 
 class SearchProductsView(generics.ListAPIView):
