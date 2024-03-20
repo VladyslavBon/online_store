@@ -7,6 +7,7 @@ class GeneralProductFilter(filters.FilterSet):
     min_price = filters.NumberFilter(field_name="price", lookup_expr="gte")
     max_price = filters.NumberFilter(field_name="price", lookup_expr="lte")
     available = filters.ChoiceFilter(choices=((True, "Yes"), (False, "No")))
+    category = filters.AllValuesFilter(field_name="category__name")
     # info_type = filters.CharFilter(
     #     field_name="info__type", lookup_expr="exact", method="filter_few_values"
     # )
@@ -48,6 +49,7 @@ class GeneralProductFilter(filters.FilterSet):
         fields = [
             "price",
             "available",
+            "category",
         ]
 
 

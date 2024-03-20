@@ -21,14 +21,9 @@ class ProductModelSerializer(serializers.ModelSerializer):
             "price",
             "sale",
             "bonus",
+            "category",
             "property",
         ]
-        """
-		lookup_field = 'slug'
-		extra_kwargs = {
-		    'url': {'lookup_field': 'slug'}
-		}
-"""
 
 
 class UserCommentSerializer(serializers.ModelSerializer):
@@ -74,6 +69,7 @@ class FavoriteProductSerializer(serializers.ModelSerializer):
 
 
 class OneProductSerializer(serializers.ModelSerializer):
+    image = serializers.URLField(source="image.url", read_only=True)
     comments = ProductCommentSerializer(
         many=True, read_only=True, source="commentmodel_set"
     )
@@ -81,16 +77,18 @@ class OneProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductModel
         fields = [
-            "name",
+            "id",
+            "title",
             "slug",
+            "code",
+            "available",
+            "promotion",
+            "image",
             "price",
-            "manufacturer",
-            "guarantee",
-            "info",
-            "comments",
-            "favorite",
+            "sale",
+            "bonus",
+            "property",
         ]
-        lookup_field = "slug"
 
 
 class AddressSerializer(serializers.ModelSerializer):
