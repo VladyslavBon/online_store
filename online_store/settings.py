@@ -105,7 +105,7 @@ DATABASES = {
         "USER": "koyeb-adm",
         "PASSWORD": "Ipebn35fqQdA",
         "HOST": "ep-patient-cloud-a2wfg8tc.eu-central-1.pg.koyeb.app",
-        "OPTIONS": {"sslmode": "require"},
+        "OPTIONS": {"sslmode": "require", "driver": "psycopg2-binary"},
     }
 }
 
