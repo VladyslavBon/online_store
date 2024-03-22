@@ -51,8 +51,7 @@ class ProductModel(models.Model):
         default=uuid.uuid4, editable=False, primary_key=True, unique=True
     )
     code = models.PositiveIntegerField(
-        default=int("".join([str(random.randint(0, 9)) for _ in range(7)])),
-        # unique=True,
+        unique=True,
         blank=True,
     )
     available = models.BooleanField(default=True)
