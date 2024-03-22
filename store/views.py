@@ -16,6 +16,7 @@ from rest_framework.mixins import (
     CreateModelMixin,
     RetrieveModelMixin,
     DestroyModelMixin,
+    ListModelMixin,
 )
 from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
@@ -79,7 +80,11 @@ class ReviewViewSet(ModelViewSet):
 
 
 class CartViewSet(
-    CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, GenericViewSet
+    CreateModelMixin,
+    RetrieveModelMixin,
+    DestroyModelMixin,
+    ListModelMixin,
+    GenericViewSet,
 ):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
