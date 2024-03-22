@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers
 
 from . import views
+from accounts import views as acviews
 
 app_name = "store"
 
@@ -13,6 +14,7 @@ router.register("products", views.ProductsViewSet)
 router.register("categories", views.CategoryViewSet)
 router.register("carts", views.CartViewSet)
 router.register("orders", views.OrderViewSet, basename="orders")
+router.register("accounts/register", acviews.RegisterApiView, basename="registration")
 
 
 product_router = routers.NestedDefaultRouter(router, "products", lookup="slug")

@@ -7,7 +7,7 @@ class ProductFilter(filters.FilterSet):
     min_price = filters.NumberFilter(field_name="price", lookup_expr="gte")
     max_price = filters.NumberFilter(field_name="price", lookup_expr="lte")
     available = filters.ChoiceFilter(choices=((True, "Yes"), (False, "No")))
-    category = filters.CharFilter(field_name="category__title", lookup_expr="iexact")
+    category = filters.CharFilter(field_name="category__slug", lookup_expr="exact")
 
     class Meta:
         model = ProductModel

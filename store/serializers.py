@@ -21,6 +21,7 @@ class ProductSerializerPOST(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "code",
             "description",
             "slug",
             "available",
@@ -39,6 +40,7 @@ class ProductSerializerPOST(serializers.ModelSerializer):
         product = ProductModel.objects.create(category=category, **validated_data)
         return product
 
+
 class ProductSerializer(serializers.ModelSerializer):
     image = serializers.URLField(source="image.url", read_only=True)
     category = CategorySerializer(read_only=True)
@@ -48,6 +50,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "code",
             "description",
             "slug",
             "available",

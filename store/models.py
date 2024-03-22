@@ -5,6 +5,8 @@ from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 from cloudinary.models import CloudinaryField
 
+import random
+
 
 class Category(models.Model):
     title = models.CharField(unique=True, max_length=200)
@@ -47,6 +49,11 @@ class ProductModel(models.Model):
     slug = models.SlugField(unique=True, blank=True, max_length=255)
     id = models.UUIDField(
         default=uuid.uuid4, editable=False, primary_key=True, unique=True
+    )
+    code = models.PositiveIntegerField(
+        default=int("".join([str(random.randint(0, 9)) for _ in range(7)])),
+        # unique=True,
+        blank=True,
     )
     available = models.BooleanField(default=True)
     promotion = models.BooleanField(blank=True)
