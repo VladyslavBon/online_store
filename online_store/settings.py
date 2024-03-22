@@ -10,31 +10,32 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import timedelta
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import environ
 
-cloudinary.config(
-    cloud_name="dewql5auf",
-    api_key="613296812413776",
-    api_secret="_PmWTMzVCGi5-Ka1MOtrkFb_x1s",
-)
-
-# import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env = environ.Env()
 
-# env = environ.Env()
-# environ.Env.read_env(BASE_DIR / ".env")
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
+cloudinary.config(
+    cloud_name=env("CLOUD_NAME"),
+    api_key=env("API_KEY"),
+    api_secret=env("API_SECRET"),
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-z^5w^ds1unzw9$=j__cu)-yg^(qjpfu&=%l%3_cvpq2_b0pqhh"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,7 +79,7 @@ ROOT_URLCONF = "online_store.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -100,14 +101,24 @@ WSGI_APPLICATION = "online_store.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "koyebdb",
-        "USER": "koyeb-adm",
-        "PASSWORD": "Ipebn35fqQdA",
-        "HOST": "ep-patient-cloud-a2wfg8tc.eu-central-1.pg.koyeb.app",
+        "NAME": env("DATABASE_NAME"),
+        "USER": env("DATABASE_USER"),
+        "PASSWORD": env("DATABASE_PASSWORD"),
+        "HOST": env("DATABASE_HOST"),
         "OPTIONS": {"sslmode": "require"},
     }
 }
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "store",
+#         "USER": "postgres",
+#         "PASSWORD": "567234",
+#         "HOST": "127.0.0.1",
+#         "PORT": 5432,
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -144,9 +155,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_URL = "/media/"
-MEDIA_ROOT = [BASE_DIR / "media"]
+MEDIA_ROOT = [os.path.join(BASE_DIR, "media")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

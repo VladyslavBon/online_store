@@ -1,35 +1,48 @@
 from django.contrib import admin
 
-from .models import ProductModel, ShippingAddressModel, OrderModel, CommentModel
+from .models import *
 
 
-@admin.register(ProductModel)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = [
-        "id",
-        "title",
-        "slug",
-        "code",
-        "available",
-        "promotion",
-        "image",
-        "price",
-        "sale",
-        "bonus",
-        "property",
-    ]
+    prepopulated_fields = {"slug": ("name",)}
 
 
-@admin.register(ShippingAddressModel)
-class ShippingAddressAdmin(admin.ModelAdmin):
-    list_display = ["address", "city", "zipcode", "date_added"]
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
 
 
-@admin.register(OrderModel)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ["id", "first_name", "last_name", "date_created"]
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(ProductModel, ProductAdmin)
+admin.site.register(Cart)
+admin.site.register(Cartitems)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+# @admin.register(ProductModel)
+# class ProductAdmin(admin.ModelAdmin):
+#     list_display = [
+#         "id",
+#         "title",
+#         "slug",
+#         "available",
+#         "promotion",
+#         "image",
+#         "price",
+#         "sale",
+#         "bonus",
+#         "property",
+#     ]
 
 
-@admin.register(CommentModel)
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ["id", "text", "user", "product"]
+# @admin.register(ShippingAddressModel)
+# class ShippingAddressAdmin(admin.ModelAdmin):
+#     list_display = ["address", "city", "zipcode", "date_added"]
+
+
+# @admin.register(OrderModel)
+# class OrderAdmin(admin.ModelAdmin):
+#     list_display = ["id", "first_name", "last_name", "date_created"]
+
+
+# @admin.register(CommentModel)
+# class CommentAdmin(admin.ModelAdmin):
+#     list_display = ["id", "text", "user", "product"]

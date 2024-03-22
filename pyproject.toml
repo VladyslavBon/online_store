@@ -19,6 +19,7 @@ whitenoise = "^6.6.0"
 django-environ = "^0.11.2"
 gunicorn = "^21.2.0"
 cloudinary = "^1.39.0"
+drf-nested-routers = "^0.93.5"
 
 
 [build-system]
