@@ -40,6 +40,7 @@ class ProductsViewSet(ModelViewSet):
     search_fields = ["name", "description"]
     ordering_fields = ["old_price"]
     pagination_class = LimitOffsetPagination
+    lookup_field = "slug"
     # pagination_class.page_size = 1
 
     def get_serializer_class(self):
