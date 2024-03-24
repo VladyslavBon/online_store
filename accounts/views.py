@@ -4,7 +4,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import CreateModelMixin
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.viewsets import ModelViewSet
 
 from .serializers import (
     RegisterUserSerializer,
@@ -22,6 +24,18 @@ class RegisterApiView(
     queryset = CustomUser.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterUserSerializer
+
+
+# class CustomTokenObtainPairView(TokenObtainPairView, ModelViewSet):
+#     pass
+
+
+# class CustomTokenObtainPairViewSet(ViewSet):
+#     def get_extra_actions(self):
+#         return []
+
+#     def create(self, request):
+#         return super().create(request)
 
 
 class GetCurrentUserView(APIView):

@@ -15,9 +15,9 @@ from .views import (
 app_name = "accounts"
 
 urlpatterns = [
-    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    # path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     # path('register/', RegisterApiView.as_view(), name = 'api_register'),
+    path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("profile/", GetCurrentUserView.as_view(), name="profile"),
     path("change_password/", ChangePasswordView.as_view(), name="change_password"),
     path("update_profile/", UpdateProfileView.as_view(), name="auth_update_profile"),

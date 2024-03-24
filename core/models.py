@@ -1,7 +1,12 @@
+from django.db import models
+
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 from django.contrib.auth.base_user import BaseUserManager
 
 
-class CustomUserManager(BaseUserManager):
+class UserManager(BaseUserManager):
 
     def create_user(
         self, email, first_name, last_name, phone_number, password, **extra_fields
@@ -43,3 +48,20 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(
             email, first_name, last_name, phone_number, password, **extra_fields
         )
+
+
+class User(AbstractUser):
+    username = None
+    email = models.EmailField(unique=True, max_length=255)
+    phone_number = models.CharField(
+        unique=True, max_length=20, validators=[RegexValidator]
+    )
+    image = models.ImageField(upload_to="images/", blank=True, null=True)
+
+    objects = UserManager()
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name", "phone_number"]
+
+    def __str__(self):
+        return self.email
